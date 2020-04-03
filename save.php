@@ -20,7 +20,7 @@ foreach($storage["workstations"][$_POST["workstation"]] as $res){
 	}	
 }
 if($isAlreadyReserved){ //error msg if conflict
-	$msg = "Buchungs Konflikt! Überprüfen Sie die Einträge Ihrer Arbeitsstation.<br>Konflikt mit Sitzung: " . $conflictSession ; //error msg
+	$msg = "Buchungs Konflikt! Überprüfen Sie die Einträge dieser Arbeitsstation.<br>Konflikt mit Sitzung: " . $conflictSession ; //error msg
 }else{ //modify db and success msg if no conflict
 	$msg = "Ihre Buchung wurde entgegen genommen.<br> Arbeitsstation " . $_POST["workstation"] . " <b>Von</b>: " . date("d.m.Y\ | H:i", strtotime($starttime)) . " <b>Bis:</b> " . date("d.m.Y\ | H:i", strtotime($endtime)); //success msg
 	
