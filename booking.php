@@ -8,27 +8,28 @@
 	</style>
 	<script type="text/javascript">
 		window.onload = function(){
-			document.getElementById("submit").disabled = true;
-			change();
+			change(); //check all info at beginning
 		}
 		var change = function(){
+			//get values
 			name = document.getElementById("name").value;
 			starttime = new Date(document.getElementById("starttime").value);
 			endtime = new Date(document.getElementById("endtime").value);
 			team = document.getElementById("team").value;
 			workstation = document.getElementById("workstation").value;
 			submit = document.getElementById("submit");
-			if(name != "" 
-				&& team != "" 
-				&& workstation != "" 
-				&& starttime != "Invalid Date" 
-				&& endtime != "Invalid Date"
-				&& starttime < endtime){
-				submit.disabled = false;
-				document.getElementById("errorlabel").innerHTML = "";
+			//check filled in info
+			if(name != "" //if name is not blank
+				&& team != "" //and team is not blank
+				&& workstation != "" //and workstation is not blank
+				&& starttime != "Invalid Date" //and start-date is not blank
+				&& endtime != "Invalid Date" //and end-date is not blank
+				&& starttime < endtime){ //and start time is smaller than endtime
+				submit.disabled = false; //allow submit button
+				document.getElementById("errorlabel").innerHTML = ""; //remove error msg
 			}
-			else{
-				document.getElementById("errorlabel").innerHTML = "Ungültige oder unvollständige Einträge. Überprüfen Sie Ihre Angaben.";
+			else{ //something or everything is not filled in
+				document.getElementById("errorlabel").innerHTML = "Ungültige oder unvollständige Einträge. Überprüfen Sie Ihre Angaben."; //print error message
 				submit.disabled = true;
 			}
 		}
@@ -41,19 +42,20 @@
 		<label for="team">Team:</label><br>
 		<select id="team" name="team"><br>
 			<option value="" disabled selected></option>
-			<option value="DE">DE</option>
-			<option value="IT">IT</option>
-			<option value="FR">FR</option>
-			<option value="EN">EN</option>
-			<option value="Sales">Sales</option>
-			<option value="Stab">Stab</option>
+<?php
+			$teams = json_decode(file_get_contents("./config.json"), true)["teams"]; //read teams from config
+			foreach($teams as $team){ //for each team
+				echo "<option value=\"$team\">$team</option>\n"; //print team-selector
+			}
+?>
 		</select><br><br>
 		<label for="workstation">Arbeitsplatz:</label><br>
 		<select id="workstation" name="workstation">
 			<option value="" disabled selected></option>
-<?php 
-			for ($i = 1; $i<=36;$i++){
-				echo("<option value=\"$i\">$i</option>");
+<?php
+			$workstations = json_decode(file_get_contents("./config.json"),true)["workstations"]; //read workstation amount from config
+			for ($i = 1; $i<= $workstations;$i++){ //wor each workstation
+				echo("<option value=\"$i\">$i</option>\n"); //print workstation-selector
 			}
 ?>
 		</select><br><br>

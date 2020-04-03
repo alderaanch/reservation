@@ -1,0 +1,6 @@
+{
+	"workstations": 36,
+	"databaseFile": "./storage.json",
+	"confirmScreenTime": 10,
+	"teams":["DE", "EN", "FR", "IT", "DTP", "Sales", "Stab"]
+}
