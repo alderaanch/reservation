@@ -4,14 +4,14 @@ error_reporting(0); //disable all warnings (warnings normaly occur with empty db
 $config = json_decode(file_get_contents("./config.json"), true);
 $storage = json_decode(file_get_contents($config["databaseFile"]), true); //load database
 //modify
-$starttime = date('Y-m-d\TH:i',strtotime($_POST['starttime'])); //get start datetime
-$endtime = date('Y-m-d\TH:i',strtotime($_POST['endtime'])); //get start datetime
+$starttime = date('Y-m-d\TH:i',strtotime($_POST['startdate'] . "T" . $_POST['starttime'])); //get start datetime
+$endtime = date('Y-m-d\TH:i',strtotime($_POST['enddate'] . "T" . $_POST['endtime'])); //get start datetime
 
 $isAlreadyReserved = 0; //0 if reservation is okay, 1 if reservation has conflict with other reservation
 $conflictSession = "";
 foreach($storage["workstations"][$_POST["workstation"]] as $res){
-	if($starttime<=$res["starttime"] && $endtime>=$res["starttime"] // new period overlaps starttime
-	|| $starttime<=$res["endtime"] && $endtime>=$res["endtime"] //new period overlaps endtime
+	if($starttime<=$res["starttime"] && $endtime>$res["starttime"] // new period overlaps starttime
+	|| $starttime<$res["endtime"] && $endtime>=$res["endtime"] //new period overlaps endtime
 	|| $starttime<=$res["starttime"] && $endtime>=$res["endtime"] // new period overlaps whole old period
 	|| $starttime>=$res["starttime"] && $endtime<=$res["endtime"]){ //new period inside old period
 		$isAlreadyReserved = 1;
@@ -28,8 +28,8 @@ if($isAlreadyReserved){ //error msg if conflict
 
 	$storage["workstations"][$_POST['workstation']][$resAmount]["username"] = $_POST['name']; //set name
 	$storage["workstations"][$_POST['workstation']][$resAmount]["userteam"] = $_POST['team']; //set team
-	$storage["workstations"][$_POST['workstation']][$resAmount]["starttime"] = $_POST['starttime']; //set start time
-	$storage["workstations"][$_POST['workstation']][$resAmount]["endtime"] = $_POST['endtime']; //set end time
+	$storage["workstations"][$_POST['workstation']][$resAmount]["starttime"] = $starttime; //set start time
+	$storage["workstations"][$_POST['workstation']][$resAmount]["endtime"] = $endtime; //set end time
 	file_put_contents($config["databaseFile"], json_encode($storage)); //write to database
 }
 

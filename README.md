@@ -14,3 +14,5 @@ workstations:             Amount of Workstations available.
 databaseFile:             Location of databaseFile.  
 confirmScreenTime:        Amount of seconds, until user is redirected to booking page, after booking was submitted.  
 teams:                    List of all teams available.  
+jsNameCall:               JavaScript code to get Username automatically.  
+allowNameChange:          Allow or Forbid User-Namechange.  
