@@ -8,6 +8,8 @@
 		}
 	</style>
 	<script type="text/javascript">
+		var mintime = "";
+		var maxtime = "";
 		window.onload = function(){
 <?php 		
 			$jsNameCall = json_decode(file_get_contents("./config.json"), true)["jsNameCall"]; //get jsnamecall from config
@@ -15,6 +17,14 @@
 
 			if(!json_decode(file_get_contents("./config.json"), true)["allowNameChange"]){ //check if user is allowed to change name
 				echo "document.getElementById(\"name\").setAttribute(\"readonly\", \"true\");";
+			}
+			$mintime = json_decode(file_get_contents("./config.json"), true)["minTime"];
+			if($mintime != ""){
+				echo "mintime = new Date(\"$mintime\");";
+			}
+			$maxtime = json_decode(file_get_contents("./config.json"),true)["maxTime"];
+			if($maxtime != ""){
+				echo "maxtime = new Date(\"$maxtime\");";
 			}
 ?>
 			change(); //check all info at beginning
@@ -37,12 +47,17 @@
 				&& workstation != "" //and workstation is not blank
 				&& starttime != "Invalid Date" //and start-date is not blank
 				&& endtime != "Invalid Date" //and end-date is not blank
-				&& starttime < endtime){ //and start time is smaller than endtime
+				&& starttime < endtime
+				&&(mintime == "" || starttime >= mintime)
+				&&(maxtime == "" || endtime <= maxtime)){ //and start time is smaller than endtime
 				submit.disabled = false; //allow submit button
 				document.getElementById("errorlabel").innerHTML = ""; //remove error msg
 			}
 			else{ //something or everything is not filled in
 				document.getElementById("errorlabel").innerHTML = "Ungültige oder unvollständige Einträge. Überprüfen Sie Ihre Angaben."; //print error message
+				if(mintime != "" || maxtime != ""){
+					document.getElementById("errorlabel").innerHTML += "<br> Zeitraum muss zwischen " + mintime.toLocaleString() + " und " + maxtime.toLocaleString() + " liegen.";
+				}
 				submit.disabled = true;
 			}
 		}

@@ -17,3 +17,5 @@ allowTeams:				  Allow or Forbid Teams (false: Teams will not show up on booking
 teams:                    List of all teams available.  
 jsNameCall:               JavaScript code to get Username automatically.  
 allowNameChange:          Allow or Forbid User-Namechange.  
+minTime:                  Minimal starttime to chose.  
+maxTime:                  Maximal endtime to chose.  

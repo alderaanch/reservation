@@ -1,9 +1,19 @@
 {
 	"workstations": 36,
+
 	"databaseFile": "./storage.json",
+
 	"confirmScreenTime": 10,
+
 	"showTeams": false,
+
 	"teams":["DE", "EN", "FR", "IT", "DTP", "Sales", "Stab"],
+
 	"jsNameCall" : "window.parent.document.getElementById(\"user-menu-link\").title;",
-	"allowNameChange": false
+
+	"allowNameChange": false,
+
+	"minTime": "2020-04-06T06:00",
+	
+	"maxTime": "2020-04-10T18:00"
 }
