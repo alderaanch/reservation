@@ -13,6 +13,7 @@ display.php:              Reads data from "storage.json" and displays it as HTML
 workstations:             Amount of Workstations available.  
 databaseFile:             Location of databaseFile.  
 confirmScreenTime:        Amount of seconds, until user is redirected to booking page, after booking was submitted.  
+allowTeams:				  Allow or Forbid Teams (false: Teams will not show up on booking or display).  
 teams:                    List of all teams available.  
 jsNameCall:               JavaScript code to get Username automatically.  
 allowNameChange:          Allow or Forbid User-Namechange.  

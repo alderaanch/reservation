@@ -24,12 +24,16 @@
 			name = document.getElementById("name").value;
 			starttime = new Date(document.getElementById("startdate").value + "T" + document.getElementById("starttime").value);
 			endtime = new Date(document.getElementById("enddate").value + "T" + document.getElementById("endtime").value);
-			team = document.getElementById("team").value;
+			if(document.getElementById("team")){
+				team = document.getElementById("team").value;
+			}else{
+				team = "noteam";
+			}
 			workstation = document.getElementById("workstation").value;
 			submit = document.getElementById("submit");
 			//check filled in info
 			if(name != "" //if name is not blank
-				&& team != "" //and team is not blank
+				&& team != ""
 				&& workstation != "" //and workstation is not blank
 				&& starttime != "Invalid Date" //and start-date is not blank
 				&& endtime != "Invalid Date" //and end-date is not blank
@@ -48,16 +52,19 @@
 	<form action="save.php" method="post">
 		<label for="name">Name:</label><br>
 		<input id ="name" type="text" name="name" placeholder="Vorname Nachname"><br><br>
-		<label for="team">Team:</label><br>
-		<select id="team" name="team"><br>
-			<option value="" disabled selected>Wählen:</option>
 <?php
-			$teams = json_decode(file_get_contents("./config.json"), true)["teams"]; //read teams from config
-			foreach($teams as $team){ //for each team
-				echo "<option value=\"$team\">$team</option>\n"; //print team-selector
+			if(json_decode(file_get_contents("./config.json"), true)["showTeams"]){
+				echo "<label for=\"team\">Team:</label><br>
+					 <select id=\"team\" name=\"team\"><br>
+					 <option value=\"\" disabled selected>Wählen:</option>";
+				$teams = json_decode(file_get_contents("./config.json"), true)["teams"]; //read teams from config
+				foreach($teams as $team){ //for each team
+					echo "<option value=\"$team\">$team</option>\n"; //print team-selector
+				}
+				echo "</select><br><br>";
 			}
+
 ?>
-		</select><br><br>
 		<label for="workstation">Arbeitsplatz:</label><br>
 		<select id="workstation" name="workstation">
 			<option value="" disabled selected>Wählen:</option>

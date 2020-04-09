@@ -2,6 +2,7 @@
 	"workstations": 36,
 	"databaseFile": "./storage.json",
 	"confirmScreenTime": 10,
+	"showTeams": false,
 	"teams":["DE", "EN", "FR", "IT", "DTP", "Sales", "Stab"],
 	"jsNameCall" : "window.parent.document.getElementById(\"user-menu-link\").title;",
 	"allowNameChange": false
