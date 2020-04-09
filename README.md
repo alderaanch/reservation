@@ -2,7 +2,7 @@
 Simple PHP based DB-Serverless reservation-system for workspaces.
 
 ## Files  
-config.json:              Contains main configuration for things, that most likely change in the future.
+config.json:              Contains main configuration for things, that most likely change in the future.  
 index.php:                Contains the HTML-Interface for the System. Calls "save.php" when form gets submitted.  
 save.php:                 Checks for reservation-conflicts and stores data in "storage.json" as JSON-Format.  
 storage.json:             Contains all reservation-data in JSON-Format.  
